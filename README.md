@@ -1,5 +1,5 @@
 <h1>ZeroThreadKernel</h1>
-<p>ZeroThreadKernel allows you to execute arbitrary code recursively at kernel-level without a system thread.</p>
+<p>ZeroThreadKernel allows you to execute arbitrary code recursively at kernel-level without a system thread creation.</p>
 <h2>How It Works</h2>
 <p>It works by hooking a non-PatchGuard protected function exported by the DirectX graphics kernel subsystem (dxgkrnl). The function is called in our user-mode program using the export from win32u.dll, which serves as a thread for recursive code execution.</p>
 <h2>Detection</h2>
