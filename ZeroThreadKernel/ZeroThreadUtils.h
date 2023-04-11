@@ -37,9 +37,9 @@ NTSTATUS MdlRtlFillMemory(PVOID Destination, BYTE Value, SIZE_T Length) {
 		return STATUS_UNSUCCESSFUL;
 	}
 
-	KIRQL KIRQL = KeRaiseIrqlToDpcLevel();
+	KIRQL OldIrql = KeRaiseIrqlToDpcLevel();
 	RtlFillMemory(Mapped, Length, Value);
-	KeLowerIrql(KIRQL);
+	KeLowerIrql(OldIrql);
 
 	MmUnmapLockedPages(Mapped, Mdl);
 	IoFreeMdl(Mdl);
@@ -108,20 +108,20 @@ PVOID GetKernelModuleExport(const char* ModuleName, const char* FunctionName)
 
     for (ULONG i = 0; i < Modules->NumberOfModules; i++)
     {
-        if (strcmp((char*)Module[i].FullPathName, ModuleName) == 0)
+        if (strcmp((char*)(Module[i].OffsetToFileName + Module[i].FullPathName), ModuleName) == 0)
         {
             ModuleBase = Module[i].ImageBase;
             break;
         }
     }
 
-    if (Modules) { 
+    if (Modules) {
         ExFreePoolWithTag(Modules, 'NeiH');
     }
 
     if (ModuleBase == 0) {
         Print("[GetKernelModuleExport] Failed to get module base");
-        return NULL; 
+        return NULL;
     }
 
     return RtlFindExportedRoutineByName(ModuleBase, FunctionName);

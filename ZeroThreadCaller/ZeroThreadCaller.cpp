@@ -15,8 +15,6 @@ int main()
         oNtCreateCompositionSurfaceHandle = (NtCreateCompositionSurfaceHandle_t)GetProcAddress(hModule, "NtCreateCompositionSurfaceHandle");
         printf("NtCreateCompositionSurfaceHandle: %p\n", oNtCreateCompositionSurfaceHandle);
 
-        getchar();
-
         oNtCreateCompositionSurfaceHandle((int)STARTZEROTHREAD, NULL, NULL);
 
         getchar();

@@ -39,7 +39,7 @@ NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING DriverName)
 	DriverObject->DriverUnload = DriverUnload;
 
 	/* Store the original  */
-	oNtCreateCompositionSurfaceHandle = (NtCreateCompositionSurfaceHandle_t)(PVOID*)GetKernelModuleExport("\\SystemRoot\\System32\\drivers\\dxgkrnl.sys", "NtCreateCompositionSurfaceHandle");
+	oNtCreateCompositionSurfaceHandle = (NtCreateCompositionSurfaceHandle_t)(PVOID*)GetKernelModuleExport("dxgkrnl.sys", "NtCreateCompositionSurfaceHandle");
 	Print("NtCreateCompositionSurfaceHandle: %p", oNtCreateCompositionSurfaceHandle);
 
 	TrampolineNtCreateCompositionSurfaceHandle = (NtCreateCompositionSurfaceHandle_t)ZeroThreadKernel::HookFunction((PVOID)oNtCreateCompositionSurfaceHandle, (PVOID)hkNtCreateCompositionSurfaceHandle, &oNtCreateCompositionSurfaceHandleBytes);
