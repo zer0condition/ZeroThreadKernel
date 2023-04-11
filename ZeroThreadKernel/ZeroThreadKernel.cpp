@@ -31,7 +31,6 @@ __int64 __fastcall hkNtCreateCompositionSurfaceHandle(__int64 a1, unsigned int a
 VOID DriverUnload(PDRIVER_OBJECT DriverObject)
 {
 	ZeroThreadKernel::UnhookFunction((PVOID)TrampolineNtCreateCompositionSurfaceHandle, (PVOID)oNtCreateCompositionSurfaceHandle, oNtCreateCompositionSurfaceHandleBytes);
-	IoDeleteDevice(DriverObject->DeviceObject);
 }
 
 NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING DriverName) 
