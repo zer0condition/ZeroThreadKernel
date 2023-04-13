@@ -159,11 +159,14 @@
     <FilesToPackage Include="$(TargetPath)" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ZeroHook\ZeroHook.cpp" />
     <ClCompile Include="ZeroThreadKernel.cpp" />
+    <ClCompile Include="ZeroUtils\ZeroUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ZeroThreadKernel.h" />
-    <ClInclude Include="ZeroThreadUtils.h" />
+    <ClInclude Include="Includes.h" />
+    <ClInclude Include="ZeroHook\ZeroHook.h" />
+    <ClInclude Include="ZeroUtils\ZeroUtils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

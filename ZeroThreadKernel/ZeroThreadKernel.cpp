@@ -1,7 +1,4 @@
-#include <ntifs.h>
-#include <stdarg.h>
-#include <windef.h>
-#include "ZeroThreadKernel.h"
+#include "Includes.h"
 
 #define STARTZEROTHREAD 0x1337
 
@@ -30,7 +27,7 @@ __int64 __fastcall hkNtCreateCompositionSurfaceHandle(__int64 a1, unsigned int a
 
 VOID DriverUnload(PDRIVER_OBJECT DriverObject)
 {
-	ZeroThreadKernel::UnhookFunction((PVOID)TrampolineNtCreateCompositionSurfaceHandle, (PVOID)oNtCreateCompositionSurfaceHandle, oNtCreateCompositionSurfaceHandleBytes);
+	ZeroHook::UnhookFunction((PVOID)TrampolineNtCreateCompositionSurfaceHandle, (PVOID)oNtCreateCompositionSurfaceHandle, oNtCreateCompositionSurfaceHandleBytes);
 }
 
 NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING DriverName) 
@@ -38,10 +35,10 @@ NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING DriverName)
 	DriverObject->DriverUnload = DriverUnload;
 
 	/* Store the original  */
-	oNtCreateCompositionSurfaceHandle = (NtCreateCompositionSurfaceHandle_t)GetKernelModuleExport("dxgkrnl.sys", "NtCreateCompositionSurfaceHandle");
+	oNtCreateCompositionSurfaceHandle = (NtCreateCompositionSurfaceHandle_t)ZeroUtils::GetKernelModuleExport("dxgkrnl.sys", "NtCreateCompositionSurfaceHandle");
 	Print("NtCreateCompositionSurfaceHandle: %p", oNtCreateCompositionSurfaceHandle);
 
-	TrampolineNtCreateCompositionSurfaceHandle = (NtCreateCompositionSurfaceHandle_t)ZeroThreadKernel::HookFunction((PVOID)oNtCreateCompositionSurfaceHandle, (PVOID)hkNtCreateCompositionSurfaceHandle, &oNtCreateCompositionSurfaceHandleBytes);
+	TrampolineNtCreateCompositionSurfaceHandle = (NtCreateCompositionSurfaceHandle_t)ZeroHook::HookFunction((PVOID)oNtCreateCompositionSurfaceHandle, (PVOID)hkNtCreateCompositionSurfaceHandle, &oNtCreateCompositionSurfaceHandleBytes);
 
 	return STATUS_SUCCESS;
 }

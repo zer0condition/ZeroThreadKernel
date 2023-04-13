@@ -1,24 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="ZeroThreadKernel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ZeroThreadUtils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{39a6af8b-57a4-49aa-a2e1-6ebe400220a0}</UniqueIdentifier>
+    <Filter Include="ZeroHook">
+      <UniqueIdentifier>{a073fe2c-66fe-433a-9201-5bd34f65ef0c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{aae37eb5-b169-41c6-a64c-c399af34f3da}</UniqueIdentifier>
+    <Filter Include="ZeroUtils">
+      <UniqueIdentifier>{d23680e8-b4b4-445c-96e5-3fb79fa51945}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ZeroThreadKernel.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="ZeroUtils\ZeroUtils.cpp">
+      <Filter>ZeroUtils</Filter>
     </ClCompile>
+    <ClCompile Include="ZeroThreadKernel.cpp" />
+    <ClCompile Include="ZeroHook\ZeroHook.cpp">
+      <Filter>ZeroHook</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ZeroHook\ZeroHook.h">
+      <Filter>ZeroHook</Filter>
+    </ClInclude>
+    <ClInclude Include="ZeroUtils\ZeroUtils.h">
+      <Filter>ZeroUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes.h" />
   </ItemGroup>
 </Project>
